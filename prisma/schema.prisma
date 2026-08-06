@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  CUSTOMER
+  BARBER
+  ADMIN
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  name          String?
+  image         String?
+  role          UserRole       @default(CUSTOMER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  appointments  Appointment[]
+  reviews       Review[]
+  barberProfile BarberProfile?
+}
+
+model BarberProfile {
+  id           String         @id @default(cuid())
+  userId       String         @unique
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bio          String?
+  isActive     Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  appointments Appointment[]
+  availability Availability[]
+  services     Service[]      @relation("BarberServices")
+  specialties  Specialty[]    @relation("BarberSpecialties")
+}
+
+model Specialty {
+  id          String          @id @default(cuid())
+  name        String          @unique
+  description String?
+  barbers     BarberProfile[] @relation("BarberSpecialties")
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model Service {
+  id           String          @id @default(cuid())
+  name         String
+  description  String?
+  price        Decimal         @db.Decimal(10, 2)
+  duration     Int
+  isActive     Boolean         @default(true)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  appointments Appointment[]
+  barbers      BarberProfile[] @relation("BarberServices")
+}
+
+model Appointment {
+  id         String            @id @default(cuid())
+  startTime  DateTime
+  endTime    DateTime
+  status     AppointmentStatus @default(PENDING)
+  totalPrice Decimal           @db.Decimal(10, 2)
+  notes      String?           @db.Text
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+  customerId String
+  customer   User              @relation(fields: [customerId], references: [id])
+  barberId   String
+  barber     BarberProfile     @relation(fields: [barberId], references: [id])
+  serviceId  String
+  service    Service           @relation(fields: [serviceId], references: [id])
+}
+
+model Availability {
+  id        String        @id @default(cuid())
+  barberId  String
+  barber    BarberProfile @relation(fields: [barberId], references: [id], onDelete: Cascade)
+  dayOfWeek Int
+  startTime String
+  endTime   String
+  isActive  Boolean       @default(true)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  rating     Int      @default(5)
+  comment    String?  @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  customerId String
+  customer   User     @relation(fields: [customerId], references: [id])
+}
+
+model GalleryImage {
+  id         String   @id @default(cuid())
+  alt        String?
+  category   String?
+  isFeatured Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model BookingSettings {
+  id                 String   @id @default(cuid())
+  minAdvanceTime     Int      @default(60)
+  maxAdvanceTime     Int      @default(30)
+  allowCancellations Boolean  @default(true)
+  cancellationWindow Int      @default(24)
+  slotInterval       Int      @default(30)
+  updatedAt          DateTime @updatedAt
+}
+
