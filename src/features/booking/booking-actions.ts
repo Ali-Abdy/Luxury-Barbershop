@@ -41,8 +41,9 @@ export const getAvailableSlots = async (
     },
   });
 
-  // Logic to generate slots based on availability and bookedAppointments...
-  // For now, return a placeholder structure
+  // Simple slot generation for testing:
+  // In a real scenario, we would break availability into intervals
+  // and filter out those that overlap with bookedAppointments.
   return { availability, bookedAppointments };
 };
 
@@ -59,14 +60,30 @@ export const createAppointment = async (
 ) => {
   const validated = appointmentSchema.parse(data);
 
-  // 1. Verify availability
-  // 2. Prevent overlapping
-  // 3. Create
   const service = await prisma.service.findUniqueOrThrow({
     where: { id: validated.serviceId },
   });
 
-  const endTime = new Date(validated.startTime.getTime() + service.duration * 60000);
+  const startTime = validated.startTime;
+  const endTime = new Date(startTime.getTime() + service.duration * 60000);
+
+  // Check for overlaps
+  const overlapping = await prisma.appointment.findFirst({
+    where: {
+      barberId: validated.barberId,
+      status: { not: "CANCELLED" },
+      OR: [
+        {
+          startTime: { lt: endTime },
+          endTime: { gt: startTime },
+        },
+      ],
+    },
+  });
+
+  if (overlapping) {
+    throw new Error("This time slot is already booked.");
+  }
 
   return await prisma.appointment.create({
     data: {
@@ -78,3 +95,4 @@ export const createAppointment = async (
     },
   });
 };
+
