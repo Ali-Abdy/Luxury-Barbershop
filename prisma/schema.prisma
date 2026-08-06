@@ -6,19 +6,6 @@ datasource db {
   provider = "postgresql"
 }
 
-enum UserRole {
-  CUSTOMER
-  BARBER
-  ADMIN
-}
-
-enum AppointmentStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
-  COMPLETED
-}
-
 model User {
   id            String         @id @default(cuid())
   email         String         @unique
@@ -28,20 +15,20 @@ model User {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   appointments  Appointment[]
-  reviews       Review[]
   barberProfile BarberProfile?
+  reviews       Review[]
 }
 
 model BarberProfile {
   id           String         @id @default(cuid())
   userId       String         @unique
-  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   bio          String?
   isActive     Boolean        @default(true)
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   appointments Appointment[]
   availability Availability[]
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   services     Service[]      @relation("BarberServices")
   specialties  Specialty[]    @relation("BarberSpecialties")
 }
@@ -50,9 +37,9 @@ model Specialty {
   id          String          @id @default(cuid())
   name        String          @unique
   description String?
-  barbers     BarberProfile[] @relation("BarberSpecialties")
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
+  barbers     BarberProfile[] @relation("BarberSpecialties")
 }
 
 model Service {
@@ -74,33 +61,33 @@ model Appointment {
   endTime    DateTime
   status     AppointmentStatus @default(PENDING)
   totalPrice Decimal           @db.Decimal(10, 2)
-  notes      String?           @db.Text
+  notes      String?
   createdAt  DateTime          @default(now())
   updatedAt  DateTime          @updatedAt
   customerId String
-  customer   User              @relation(fields: [customerId], references: [id])
   barberId   String
-  barber     BarberProfile     @relation(fields: [barberId], references: [id])
   serviceId  String
+  barber     BarberProfile     @relation(fields: [barberId], references: [id])
+  customer   User              @relation(fields: [customerId], references: [id])
   service    Service           @relation(fields: [serviceId], references: [id])
 }
 
 model Availability {
   id        String        @id @default(cuid())
   barberId  String
-  barber    BarberProfile @relation(fields: [barberId], references: [id], onDelete: Cascade)
   dayOfWeek Int
   startTime String
   endTime   String
   isActive  Boolean       @default(true)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
+  barber    BarberProfile @relation(fields: [barberId], references: [id], onDelete: Cascade)
 }
 
 model Review {
   id         String   @id @default(cuid())
   rating     Int      @default(5)
-  comment    String?  @db.Text
+  comment    String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   customerId String
@@ -126,3 +113,15 @@ model BookingSettings {
   updatedAt          DateTime @updatedAt
 }
 
+enum UserRole {
+  CUSTOMER
+  BARBER
+  ADMIN
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
