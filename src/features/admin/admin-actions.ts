@@ -54,3 +54,4 @@ export async function createService(data: z.infer<typeof serviceSchema>) {
   const validated = serviceSchema.parse(data);
   return await prisma.service.create({ data: validated });
 }
+
