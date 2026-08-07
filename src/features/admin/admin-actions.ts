@@ -43,7 +43,7 @@ export async function getServices() {
   return await prisma.service.findMany({ orderBy: { name: "asc" } });
 }
 
-export const serviceSchema = z.object({
+const serviceSchema = z.object({
   name: z.string().min(1),
   price: z.coerce.number().positive(),
   duration: z.coerce.number().positive(),
