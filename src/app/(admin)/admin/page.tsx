@@ -2,19 +2,46 @@ import { PageWrapper } from "@/components/layout/page-wrapper";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { AnimatedPage } from "@/components/shared/animated-page";
+import { getAdminDashboardStats, getAllBarbers, getServices } from "@/features/admin/admin-actions";
+import { Card } from "@/components/ui/card";
 
-export default function AdminPage() {
+export default async function AdminDashboardPage() {
+  const stats = await getAdminDashboardStats();
+  const barbers = await getAllBarbers();
+  const services = await getServices();
+
   return (
     <PageWrapper>
       <AnimatedPage>
-        <Section>
-          <Container className="space-y-8">
-            <div className="max-w-2xl space-y-4">
-              <p className="text-sm uppercase tracking-[0.34em] text-muted-foreground">Admin</p>
-              <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Administrative workspace.</h1>
-              <p className="text-lg text-muted-foreground">
-                The dashboard shell is in place for future operational tools and management workflows.
-              </p>
+        <Section className="py-24">
+          <Container className="space-y-12">
+            <h1 className="text-4xl font-light">Admin Dashboard</h1>
+            
+            <div className="grid grid-cols-3 gap-6">
+              <Card className="p-6">
+                <p className="text-neutral-500">Total Appointments</p>
+                <p className="text-3xl">{stats.totalAppointments}</p>
+              </Card>
+              <Card className="p-6">
+                <p className="text-neutral-500">Active Barbers</p>
+                <p className="text-3xl">{stats.activeBarbers}</p>
+              </Card>
+              <Card className="p-6">
+                <p className="text-neutral-500">Active Services</p>
+                <p className="text-3xl">{stats.totalServices}</p>
+              </Card>
+            </div>
+
+            <div className="grid gap-6">
+              <h2 className="text-2xl">Barbers</h2>
+              {barbers.map((b) => (
+                <Card key={b.id} className="p-6 flex justify-between">
+                  <span>{b.user.name}</span>
+                  <span className={b.isActive ? "text-green-600" : "text-red-600"}>
+                    {b.isActive ? "Active" : "Inactive"}
+                  </span>
+                </Card>
+              ))}
             </div>
           </Container>
         </Section>
