@@ -29,7 +29,7 @@ export default async function DashboardPage() {
                       <p className="text-sm text-neutral-500">{apt.startTime.toDateString()} at {apt.startTime.toLocaleTimeString()}</p>
                     </div>
                     <form action={async () => { "use server"; await cancelAppointment(apt.id); }}>
-                      <Button variant="destructive" type="submit">Cancel</Button>
+                      <Button variant="danger" type="submit">Cancel</Button>
                     </form>
                   </Card>
                 ))}
@@ -41,3 +41,4 @@ export default async function DashboardPage() {
     </PageWrapper>
   );
 }
+

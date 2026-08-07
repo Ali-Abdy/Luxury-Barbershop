@@ -1,11 +1,15 @@
-"use client";
-
 import { Card } from "@/components/ui/card";
 
-export function BarberSelector({ barbers, onSelect, selected }: any) {
+interface BarberProps {
+  id: string;
+  user: { name: string | null };
+  bio: string | null;
+}
+
+export function BarberSelector({ barbers, onSelect, selected }: { barbers: BarberProps[], onSelect: (id: string) => void, selected: string }) {
   return (
     <div className="grid md:grid-cols-2 gap-4">
-      {barbers.map((b: any) => (
+      {barbers.map((b) => (
         <Card 
           key={b.id}
           onClick={() => onSelect(b.id)}

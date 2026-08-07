@@ -10,7 +10,7 @@ export function TimeSelector({ slots, onSelect, selected }: { slots: string[], o
       {slots.map((time) => (
         <Button
           key={time}
-          variant={selected === time ? "default" : "outline"}
+          variant={selected === time ? "gold" : "outline"}
           onClick={() => onSelect(time)}
         >
           {time}

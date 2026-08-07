@@ -1,12 +1,17 @@
-"use client";
-
 import { Card } from "@/components/ui/card";
-import { LuxuryBadge } from "@/components/ui/LuxuryBadge";
 
-export function ServiceSelector({ services, onSelect, selected }: any) {
+interface ServiceProps {
+  id: string;
+  name: string;
+  description: string | null;
+  duration: number;
+  price: number;
+}
+
+export function ServiceSelector({ services, onSelect, selected }: { services: ServiceProps[], onSelect: (id: string) => void, selected: string }) {
   return (
     <div className="grid gap-4">
-      {services.map((s: any) => (
+      {services.map((s) => (
         <Card 
           key={s.id}
           onClick={() => onSelect(s.id)}
@@ -27,3 +32,4 @@ export function ServiceSelector({ services, onSelect, selected }: any) {
     </div>
   );
 }
+

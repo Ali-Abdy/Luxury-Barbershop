@@ -1,9 +1,14 @@
-"use client";
-
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { LuxuryBadge } from "@/components/ui/LuxuryBadge";
 
-export function BookingSummary({ booking, onConfirm, loading }: any) {
+interface BookingData {
+  serviceName: string;
+  barberName: string;
+  date: string;
+  time: string;
+}
+
+export function BookingSummary({ booking, onConfirm, loading }: { booking: BookingData, onConfirm: () => void, loading: boolean }) {
   return (
     <div className="space-y-6">
       <div className="bg-neutral-50 p-6 rounded-lg space-y-4">

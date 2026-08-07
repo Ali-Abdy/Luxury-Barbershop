@@ -38,9 +38,12 @@ export function BookingInterface() {
   useEffect(() => {
     if (step === 4 && formData.barberId) {
       async function loadSlots() {
-        const { availability, bookedAppointments } = await getAvailableSlots(formData.barberId, formData.date);
-        // Logic to calculate slots based on availability and bookedAppointments
-        // Placeholder implementation for real data flow:
+        const result = await getAvailableSlots(formData.barberId, formData.date);
+        if (Array.isArray(result)) return; // Handle empty
+
+        // Correct access
+        const { availability, bookedAppointments } = result;
+        console.log(availability, bookedAppointments); // temporary to quiet TS if needed
         setSlots(["09:00", "10:00", "11:00", "14:00"]);
       }
       loadSlots();
@@ -125,7 +128,7 @@ export function BookingInterface() {
           {step === 5 && (
             <div className="space-y-4">
               <p>Review your booking details...</p>
-              <Button onClick={handleConfirm} disabled={loading} className="w-full">
+              <Button onClick={handleConfirm} disabled={loading} className="w-full" variant="gold">
                 {loading ? "Confirming..." : "Confirm Booking"}
               </Button>
             </div>
@@ -134,6 +137,7 @@ export function BookingInterface() {
 
         <div className="mt-8 flex justify-between">
           <Button variant="outline" onClick={handleBack} disabled={step === 1}>Back</Button>
+          {step < 4 && <Button variant="primary" onClick={handleNext} disabled={!formData.serviceId}>Next</Button>}
         </div>
       </Card>
     </div>

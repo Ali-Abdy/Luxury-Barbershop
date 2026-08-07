@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { LuxuryBadge } from "@/components/ui/LuxuryBadge";
 
 export function BookingProgress({ step }: { step: number }) {
   const steps = ["Service", "Barber", "Date", "Time", "Confirm"];
