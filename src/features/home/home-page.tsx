@@ -66,13 +66,9 @@ export function HomePage() {
               </div>
             </FadeIn>
             <div className="overflow-hidden rounded-[32px] border border-border/70 bg-surface/80 p-3 shadow-[0_24px_80px_-26px_rgba(15,23,42,0.25)]">
-              <Image
-                src="/images/hero/hero-1.jpg"
-                alt="Refined interior of a luxury barbershop"
-                width={900}
-                height={1200}
-                className="h-[480px] w-full rounded-[24px] object-cover"
-              />
+              <div className="h-[480px] w-full rounded-[24px] bg-neutral-200 flex items-center justify-center text-neutral-500">
+                Hero Image Placeholder
+              </div>
             </div>
           </div>
         </Container>
@@ -95,3 +91,4 @@ export function HomePage() {
     </AnimatedPage>
   );
 }
+
