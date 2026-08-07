@@ -1,9 +1,17 @@
+import type { Metadata } from "next";
 import { PageWrapper } from "@/components/layout/page-wrapper";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { AnimatedPage } from "@/components/shared/animated-page";
 import { LuxuryBadge } from "@/components/ui/LuxuryBadge";
 import { ServiceHighlight } from "@/components/sections/ServiceHighlight";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Luxury Barbershop | Master Grooming Rituals",
+  description: "Experience refined artistry and timeless style at our luxury barbershop.",
+};
 
 export default function ServicesPage() {
   return (
@@ -26,9 +34,9 @@ export default function ServicesPage() {
                 <h3 className="text-2xl font-light">Ready for your transformation?</h3>
                 <p className="text-neutral-400">Book your signature experience today.</p>
               </div>
-              <button className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 rounded-md transition-colors">
-                Book Appointment
-              </button>
+              <Button asChild className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 rounded-md transition-colors">
+                <Link href="/booking">Book Appointment</Link>
+              </Button>
             </div>
           </Container>
         </Section>
@@ -36,3 +44,4 @@ export default function ServicesPage() {
     </PageWrapper>
   );
 }
+

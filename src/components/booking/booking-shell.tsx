@@ -137,7 +137,7 @@ export function BookingInterface() {
 
         <div className="mt-8 flex justify-between">
           <Button variant="outline" onClick={handleBack} disabled={step === 1}>Back</Button>
-          {step < 4 && <Button variant="primary" onClick={handleNext} disabled={!formData.serviceId}>Next</Button>}
+          {step < 4 && <Button variant="primary" onClick={handleNext} disabled={!formData.serviceId} aria-label="Next Step">Next</Button>}
         </div>
       </Card>
     </div>
