@@ -1,5 +1,7 @@
 "use client";
 
+
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
@@ -7,7 +9,7 @@ import { Container } from "@/components/layout/container";
 export function LuxuryHero() {
   return (
     <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-neutral-900" />
+      <div className="absolute inset-0 bg-background" />
       <Container className="relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -28,3 +30,4 @@ export function LuxuryHero() {
     </section>
   );
 }
+

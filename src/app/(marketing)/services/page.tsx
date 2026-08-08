@@ -27,7 +27,7 @@ export default function ServicesPage() {
                   <div className="relative aspect-[16/10]">
                     <Image
                       src={service.image}
-                      alt={service.name}
+                      alt={`Photo of ${service.name}`}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
