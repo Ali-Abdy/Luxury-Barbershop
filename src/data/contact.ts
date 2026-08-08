@@ -1,6 +1,6 @@
 export const contactData = {
-  address: "123 Grooming Street, London, UK",
-  phone: "+44 20 7123 4567",
+  address: "Goethestraße 34, 60313 Frankfurt am Main, Germany",
+  phone: "+49 123 4567890",
   email: "contact@luxurybarbershop.com",
   hours: [
     { day: "Monday - Friday", time: "09:00 - 19:00" },
