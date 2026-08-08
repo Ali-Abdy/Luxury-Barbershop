@@ -3,28 +3,29 @@ export const teamMembers = [
     name: "Thompson",
     role: "Master Barber",
     image: "/images/barbers/thompson.png",
-    description: "Decades of experience combining traditional techniques with modern luxury grooming.",
-    specialty: "Signature Scissors Cuts"
+    description: "Experienced master barber specializing in classic grooming, precision cuts, and traditional techniques.",
+    specialty: "Senior Artisan"
   },
   {
     name: "Ali",
-    role: "Modern Grooming Specialist",
+    role: "Style Specialist",
     image: "/images/barbers/ali.png",
-    description: "Modern styling focused on contemporary trends and precise finishing.",
-    specialty: "Modern Grooming"
-  },
-  {
-    name: "Martinez",
-    role: "Creative Specialist",
-    image: "/images/barbers/martinez.png",
-    description: "Blending creative expression with technical precision for unique styles.",
-    specialty: "Creative Fades"
+    description: "Modern barber focused on contemporary hairstyles, detailed fades, and personalized styling.",
+    specialty: "Creative Artisan"
   },
   {
     name: "Nguyen",
-    role: "Precision Hair Artist",
+    role: "Barber",
     image: "/images/barbers/nguyen.png",
-    description: "Meticulous focus on detail for the cleanest, most refined looks.",
-    specialty: "Precision Styling"
+    description: "Specialist in clean fades, texture work, and refined modern grooming.",
+    specialty: "Precision Specialist"
+  },
+  {
+    name: "Johnson",
+    role: "Barber",
+    image: "/images/barbers/johnson.png",
+    description: "Focused on premium beard sculpting, classic cuts, and luxury client experiences.",
+    specialty: "Grooming Specialist"
   }
 ];
+
