@@ -9,15 +9,10 @@ export default function LoginPage() {
   return (
     <PageWrapper>
       <AnimatedPage>
-        <Section>
-          <Container className="max-w-md py-12">
-            <div className="space-y-8">
-              <div className="text-center">
-                <p className="text-sm uppercase tracking-[0.34em] text-muted-foreground mb-2">Access</p>
-                <h1 className="text-4xl font-light tracking-tight">Sign In</h1>
-              </div>
-
-              <form
+        <Section className="py-24">
+          <Container className="max-w-md">
+            <h1 className="text-3xl font-light mb-8 text-center">Sign In</h1>
+            <form
                 action={async (formData) => {
                   "use server";
                   await signIn("credentials", formData);
@@ -25,12 +20,13 @@ export default function LoginPage() {
                 className="space-y-6"
               >
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest font-medium text-neutral-500">Email Address</label>
+                <label className="text-xs uppercase tracking-widest font-medium text-neutral-500">Email</label>
                   <input 
                     name="email" 
                     type="email" 
-                    placeholder="e.g., james@example.com" 
-                    className="w-full p-4 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 transition-all" 
+                  autoComplete="email"
+                  placeholder="Email"
+                  className="w-full p-4 border border-neutral-200 rounded-lg focus:outline-amber-600"
                     required 
                   />
                 </div>
@@ -39,14 +35,20 @@ export default function LoginPage() {
                   <input 
                     name="password" 
                     type="password" 
-                    placeholder="••••••••" 
-                    className="w-full p-4 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 transition-all" 
+                  autoComplete="current-password"
+                  placeholder="Password"
+                  className="w-full p-4 border border-neutral-200 rounded-lg focus:outline-amber-600"
                     required 
                   />
                 </div>
-                <Button type="submit" className="w-full bg-neutral-900 text-white hover:bg-neutral-800 py-7 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all">
+              <Button type="submit" className="w-full bg-neutral-900 py-6 text-lg rounded-lg">
                   Sign In
                 </Button>
+              </form>
+
+            <div className="mt-8 pt-8 border-t border-neutral-200">
+              <form action={async () => { "use server"; await signIn("google"); }}>
+                <Button type="submit" variant="outline" className="w-full py-6 text-lg">Continue with Google</Button>
               </form>
             </div>
           </Container>
@@ -55,3 +57,4 @@ export default function LoginPage() {
     </PageWrapper>
   );
 }
+
