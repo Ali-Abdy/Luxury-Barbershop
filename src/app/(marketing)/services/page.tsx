@@ -3,40 +3,48 @@ import { PageWrapper } from "@/components/layout/page-wrapper";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { AnimatedPage } from "@/components/shared/animated-page";
-import { LuxuryBadge } from "@/components/ui/LuxuryBadge";
-import { ServiceHighlight } from "@/components/sections/ServiceHighlight";
+import { services } from "@/data/services";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Luxury Barbershop | Master Grooming Rituals",
-  description: "Experience refined artistry and timeless style at our luxury barbershop.",
+  title: "Services | Luxury Barbershop",
+  description: "Discover premium haircuts, beard grooming, and traditional barber services.",
 };
 
 export default function ServicesPage() {
   return (
     <PageWrapper>
       <AnimatedPage>
-        <Section className="bg-neutral-50 min-h-screen">
-          <Container className="py-24">
-            <div className="max-w-3xl space-y-4 mb-16">
-              <LuxuryBadge>The Menu</LuxuryBadge>
-              <h1 className="text-5xl font-light tracking-tight sm:text-6xl">Curated Grooming Rituals</h1>
-              <p className="text-xl text-neutral-600 leading-relaxed">
-                Explore our selection of premium services, designed to provide the ultimate in grooming and relaxation.
-              </p>
-            </div>
-            
-            <ServiceHighlight />
-            
-            <div className="mt-24 p-12 bg-neutral-900 text-white rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8">
-              <div className="space-y-2">
-                <h3 className="text-2xl font-light">Ready for your transformation?</h3>
-                <p className="text-neutral-400">Book your signature experience today.</p>
-              </div>
-              <Button asChild className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 rounded-md transition-colors">
-                <Link href="/booking">Book Appointment</Link>
+        <Section className="py-24">
+          <Container>
+            <h1 className="text-4xl font-light mb-16 text-center">Our Services</h1>
+            <div className="grid md:grid-cols-3 gap-8">
+              {services.map((service) => (
+                <Card key={service.id} className="group overflow-hidden hover:border-amber-600 transition-all">
+                  <div className="relative aspect-[16/10]">
+                    <Image
+                      src={service.image}
+                      alt={service.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-medium">{service.name}</h3>
+                    <p className="text-neutral-500 mt-2 text-sm">{service.description}</p>
+                    <div className="flex justify-between items-center mt-6">
+                      <span className="text-amber-700 font-semibold">{service.price}</span>
+                      <span className="text-neutral-400 text-sm">{service.duration}</span>
+                    </div>
+                    <Button asChild className="w-full mt-4" variant="gold">
+                      <Link href={`/booking?service=${service.id}`}>Book Now</Link>
               </Button>
+            </div>
+                </Card>
+              ))}
             </div>
           </Container>
         </Section>
