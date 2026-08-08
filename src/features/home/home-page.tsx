@@ -9,7 +9,6 @@ import { FadeIn } from "@/components/shared/animations";
 import Link from "next/link";
 import { LuxuryHero } from "@/components/sections/LuxuryHero";
 import { ServiceHighlight } from "@/components/sections/ServiceHighlight";
-import { LuxuryBadge } from "@/components/ui/LuxuryBadge";
 import { BrandPhilosophy } from "@/components/sections/BrandPhilosophy";
 import { TeamShowcase } from "@/components/sections/TeamShowcase";
 import { LuxuryGallery } from "@/components/sections/LuxuryGallery";
@@ -28,8 +27,7 @@ export function HomePage() {
       <Section className="py-24">
         <Container>
           <div className="text-center mb-16">
-            <LuxuryBadge>Our Expertise</LuxuryBadge>
-            <h2 className="text-4xl font-light">Curated Services</h2>
+            <h2 className="text-4xl font-light text-foreground">Curated Services</h2>
           </div>
           <ServiceHighlight />
         </Container>

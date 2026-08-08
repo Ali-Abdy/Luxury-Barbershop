@@ -1,3 +1,7 @@
+import { Container } from "@/components/layout/container";
+import { contactData } from "@/data/contact";
+import Link from "next/link";
+
 export function Footer() {
   return (
     <footer className="bg-surface text-foreground py-16 border-t border-border">
@@ -31,3 +35,4 @@ export function Footer() {
     </footer>
   );
 }
+
