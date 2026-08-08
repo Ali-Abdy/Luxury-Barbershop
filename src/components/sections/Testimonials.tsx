@@ -42,12 +42,4 @@ export function Testimonials() {
     </div>
   );
 }
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </Container>
-    </div>
-  );
-}
 
